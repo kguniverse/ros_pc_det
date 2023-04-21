@@ -22,8 +22,9 @@ setup(
         'console_scripts': [
             'talker=pc_det.pub_bin:main',
             'listener=pc_det.bin2pcd:main',
-            'pcl_client=pc_det.pcl_client:main',
-            'infer_node=pc_det.infer_node:main'
+            'consumer_node=pc_det.consumer_node:main',
+            'infer_node=pc_det.infer_node:main',
+            'sync_node=pc_det.sync_node:main',
         ],
     },
 )

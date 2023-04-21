@@ -7,8 +7,8 @@ Panels:
         - /Global Options1
         - /Status1
         - /PointCloud21
-        - /MarkerArray1
-        - /MarkerArray1/Status1
+        - /Detection3DArray1
+        - /Detection3DArray1/Topic1
       Splitter Ratio: 0.5
     Tree Height: 806
   - Class: rviz_common/Selection
@@ -36,7 +36,7 @@ Visualization Manager:
       Cell Size: 1
       Class: rviz_default_plugins/Grid
       Color: 160; 160; 164
-      Enabled: true
+      Enabled: false
       Line Style:
         Line Width: 0.029999999329447746
         Value: Lines
@@ -49,7 +49,7 @@ Visualization Manager:
       Plane: XY
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -72,7 +72,7 @@ Visualization Manager:
       Position Transformer: XYZ
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.009999999776482582
+      Size (m): 0.029999999329447746
       Style: Flat Squares
       Topic:
         Depth: 5
@@ -80,26 +80,31 @@ Visualization Manager:
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /point_cloud
+        Value: /pub_pc2
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
-    - Class: rviz_default_plugins/MarkerArray
+    - Alpha: 1
+      Class: vision_msgs_rviz_plugins/Detection3DArray
+      ConfigPath: /home/wangqiankai/ros2_ws/pc_det/rviz/color.yaml
       Enabled: true
-      Name: MarkerArray
+      Line Width: 0.05000000074505806
+      Name: Detection3DArray
       Namespaces:
-        bbox3d: true
+        {}
+      Only Edge: true
+      Show Score: false
       Topic:
         Depth: 5
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /detect_bbox3d
+        Value: pub_bbox3d
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: velodyne_lidar
+    Fixed Frame: pub
     Frame Rate: 30
   Name: root
   Tools:
@@ -142,7 +147,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 17.55333709716797
+      Distance: 34.58665084838867
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -157,10 +162,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.48520416021347046
+      Pitch: 0.7197958827018738
       Target Frame: <Fixed Frame>
-      Value: Orbit (rviz)
-      Yaw: 4.080836772918701
+      Value: Orbit (rviz_default_plugins)
+      Yaw: 2.245151996612549
     Saved: ~
 Window Geometry:
   Displays:
@@ -178,5 +183,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 2412
-  X: 148
-  Y: 54
+  X: 269
+  Y: 173

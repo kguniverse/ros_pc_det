@@ -9,7 +9,7 @@ def generate_launch_description():
         Node(
             package='pc_det',
             executable='talker',
-            name='talker',
+            name='pub_bin',
             parameters=[]
         ),
         Node(
@@ -20,14 +20,20 @@ def generate_launch_description():
         ),
         Node(
             package='pc_det',
-            executable='pcl_client',
-            name='pcl_client',
+            executable='consumer_node',
+            name='consumer_node',
             parameters=[]
         ),
         Node(
             package='pc_det',
             executable='infer_node',
             name='infer_node',
+            parameters=[]
+        ),
+        Node(
+            package='pc_det',
+            executable='sync_node',
+            name='sync_node',
             parameters=[]
         ),
         Node(

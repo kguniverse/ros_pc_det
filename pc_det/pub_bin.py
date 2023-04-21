@@ -17,7 +17,7 @@ class MinimalPublisher(Node):
     def __init__(self):
         super().__init__('minimal_publisher')
         self.publisher_ = self.create_publisher(String, 'bin_file_dir', 10)
-        timer_period = 2  # seconds
+        timer_period = 0.5  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.filenames = self.getBinDir()
         self.count = 0
@@ -27,7 +27,7 @@ class MinimalPublisher(Node):
         msg.data = self.filenames[self.count]
         self.count += 1
         self.publisher_.publish(msg)
-        self.get_logger().info('Publishing: "%s"' % msg.data)
+        # self.get_logger().info('Publishing: "%s"' % msg.data)
 
     def getBinDir(self):
         main_folder = 'data/nuscenes/samples/LIDAR_TOP'

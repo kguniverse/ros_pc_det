@@ -17,19 +17,18 @@ class TransNode(Node):
             String,
             'bin_file_dir',
             self.listener_callback,
-            10)
-        self.publisher = self.create_publisher(PointCloud2, 'point_cloud', 100)
-        self.subscription
+            1)
+        self.publisher = self.create_publisher(PointCloud2, 'point_cloud', 10)
     
     def listener_callback(self, msg):
-        self.get_logger().info('I heard: "%s"' % msg.data)
+        # self.get_logger().info('I heard: "%s"' % msg.data)
         pcd_bin_file = msg.data
         pc = LidarPointCloud.from_file(pcd_bin_file)
         bin_pcd = pc.points.T
         point_data = bin_pcd.reshape((-1, 4))
         # point_data = np.fromfile(bin_file, dtype=np.float32, count=-1).reshape([-1, 4])
         header = Header()
-        header.frame_id = "/velodyne_lidar"
+        header.frame_id = msg.data
         header.stamp = self.get_clock().now().to_msg()
         fields = [
             PointField(name='x', offset=0, datatype=PointField.FLOAT32, count=1),
