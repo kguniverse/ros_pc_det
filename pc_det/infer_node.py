@@ -2,11 +2,10 @@ import rclpy
 import os
 from rclpy.node import Node
 from std_msgs.msg import String
-from sensor_msgs.msg import PointCloud2
+from sensor_msgs.msg import PointCloud2, LaserScan
 import mmcv
 from mmdet3d.apis import inference_detector, init_model
 from geometry_msgs.msg import Point, Pose, Quaternion, Vector3
-from builtin_interfaces.msg import Duration
 import tf_transformations
 
 from vision_msgs.msg import Detection3DArray, Detection3D, ObjectHypothesisWithPose
@@ -21,10 +20,19 @@ class InferNode(Node):
             '/point_cloud',
             self.listener_callback,
             10)
-        mmdet3d_path = '/home/wangqiankai/openmmlab/mmdetection3d'
-        config_file = os.path.join(mmdet3d_path, 'configs/pointpillars/hv_pointpillars_fpn_sbn-all_4x8_2x_nus-3d.py')
-        checkpoint_file = 'checkpoint/hv_pointpillars_fpn_sbn-all_4x8_2x_nus-3d_20210826_104936-fca299c1.pth'
-        self.model = init_model(config_file, checkpoint_file, device='cuda:0')
+        
+        self.declare_parameter('mmdet3d_path', '')
+        self.declare_parameter('config_file', '')
+        self.declare_parameter('checkpoint_file', '')
+        self.declare_parameter('score_threshold', 0.3)
+
+        mmdet3d_path = self.get_parameter('mmdet3d_path').get_parameter_value().string_value
+        config_file = self.get_parameter('config_file').get_parameter_value().string_value
+        full_config_file = os.path.join(mmdet3d_path, config_file)
+        checkpoint_file = self.get_parameter('checkpoint_file').get_parameter_value().string_value
+        self.get_logger().info('full_config_file: "%s"' % full_config_file)
+        self.get_logger().info('checkpoint_file: "%s"' % checkpoint_file)
+        self.model = init_model(full_config_file, checkpoint_file, device='cuda:0')
         self.count = 0
         self.marker_pub = self.create_publisher(Detection3DArray, '/detect_bbox3d', 10)
 
@@ -39,9 +47,10 @@ class InferNode(Node):
         # mmcv.dump((boxes, label, score), f'results/pc_det_result_{self.count}.pkl')
         self.count += 1
     
-    def draw_bbox(self, bboxes, labels, scores, score_thrs=0.3, timestamp=None):
+    def draw_bbox(self, bboxes, labels, scores, timestamp=None):
         # draw bbox on rviz2
 
+        score_thrs = self.get_parameter('score_threshold').get_parameter_value().double_value
         det3d_array = Detection3DArray()
         det3d_array.header.frame_id = 'velodyne_lidar'
         if timestamp is None:

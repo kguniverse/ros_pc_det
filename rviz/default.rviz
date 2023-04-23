@@ -86,7 +86,7 @@ Visualization Manager:
       Value: true
     - Alpha: 1
       Class: vision_msgs_rviz_plugins/Detection3DArray
-      ConfigPath: /home/wangqiankai/ros2_ws/pc_det/rviz/color.yaml
+      ConfigPath: /home/wangqiankai/ros2_ws/src/pc_det/rviz/color.yaml
       Enabled: true
       Line Width: 0.05000000074505806
       Name: Detection3DArray
@@ -147,7 +147,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 34.58665084838867
+      Distance: 39.9815788269043
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -162,10 +162,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7197958827018738
+      Pitch: 0.33479636907577515
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz_default_plugins)
-      Yaw: 2.245151996612549
+      Yaw: 4.645188808441162
     Saved: ~
 Window Geometry:
   Displays:
@@ -183,5 +183,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 2412
-  X: 269
-  Y: 173
+  X: 148
+  Y: 112
