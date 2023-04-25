@@ -23,16 +23,26 @@ In the patch 0.0.2, we introduced the ros2 params feature in order to avoid verb
 
 1. pub_nuscenes_bin
     - time_period
+
         Time period for releasing the point cloud. In nuscenes source, it is the frequency of publishing point cloud; in real-time lidar scan, it is the scan frequency.
+
     - nus_lidar_path
+
         The path to the pointcloud folder. It should end with 'LIDAR_TOP'.
+        
 2. infer_node
     - mmdet3d_path
+
         The absolute path to the mmdet3d package.
+
     - config_file
+
         The relative path of config file in mmdet3d path.
+
     - checkpoint_file
+    
         The absolute path to the checkpoint file.(.pth)
+
 
 ### 3. build
 
