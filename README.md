@@ -2,9 +2,11 @@
 
 ## prequisites
 
-- ROS2-humble
-- ros-humble-vision-msgs
-- ros-humble-vision-msgs-rviz-plugins
+- ROS2(humble, foxy)
+- vision-msgs
+- vision-msgs-rviz-plugins
+- tf-transformation
+- sensor-msgs
 - mmdet3d(temporary) 1.0.0-rc6
 
 ## build
@@ -14,6 +16,13 @@
 ```bash
 rosdep install --from-paths src --ignore-src -r -y
 ```
+
+Note:
+
+If you are using Foxy distro instead of Humble, you need to manually build these dependencies:
+- vision-msgs
+- vision-msgs-rviz-plugins
+
 
 ### 2. rewrite config
 
