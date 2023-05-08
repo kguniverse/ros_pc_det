@@ -2,6 +2,7 @@
 checkpoint
 data
 results
+*.onnx
 
 # colcon files
 build
