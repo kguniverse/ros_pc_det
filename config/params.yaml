@@ -1,10 +1,11 @@
 pub_bin:
   ros__parameters:
-    time_period: 0.1
+    time_period: 0.5
     nus_lidar_path: /home/wangqiankai/ros2_ws/src/pc_det/data/nuscenes/samples/LIDAR_TOP
 infer_node:
   ros__parameters:
-    score_threshold: 0.6
+    score_threshold: 0.2
     mmdet3d_path: /home/wangqiankai/openmmlab/mmdetection3d
-    config_file: configs/pointpillars/hv_pointpillars_fpn_sbn-all_4x8_2x_nus-3d.py
-    checkpoint_file: /home/wangqiankai/ros2_ws/src/pc_det/checkpoint/hv_pointpillars_fpn_sbn-all_4x8_2x_nus-3d_20210826_104936-fca299c1.pth
+    config_file: configs/pointpillars/hv_pointpillars_secfpn_sbn-all_4x8_2x_nus-3d.py
+    checkpoint_file: /home/wangqiankai/ros2_ws/src/pc_det/checkpoint/hv_pointpillars_secfpn_sbn-all_4x8_2x_nus-3d_20210826_225857-f19d00a3.pth
+    onnx_model: /home/wangqiankai/Downloads/pointpillars.onnx
