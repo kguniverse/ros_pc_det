@@ -33,6 +33,7 @@ setup(
             'sync_node=pc_det.sync_node:main',
             'dummy_scan2pc=pc_det.scan2pc:main',
             'infer_node_ort=pc_det.infer_node_ort:main',
+            'infer_node_point=pc_det.infer_node_point:main',
         ],
     },
 )
