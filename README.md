@@ -40,6 +40,10 @@ In the patch 0.0.2, we introduced the ros2 params feature in order to avoid verb
         The path to the pointcloud folder. It should end with 'LIDAR_TOP'.
         
 2. infer_node
+    - score_threshold
+
+        The threshold of score for filtering the detection result.
+
     - mmdet3d_path
 
         The absolute path to the mmdet3d package.
@@ -51,6 +55,10 @@ In the patch 0.0.2, we introduced the ros2 params feature in order to avoid verb
     - checkpoint_file
     
         The absolute path to the checkpoint file.(.pth)
+        
+    - onnx_model(supported in v1.0.x)
+        
+        The absolute path to the onnxruntime model file.(.onnx)
 
 
 ### 3. build
@@ -62,10 +70,27 @@ colcon build --packages-select pc_det
 
 ## run
 
-1. nuscenes demo source
+### nuscenes demo source(nuscenes mini)
+
+1. base demo (mmdet3d api)
+
 ``` bash
 ros2 launch pc_det nuscenes_demo_launch.py
 ```
+
+2. ort-gpu infer (still bug)
+
+``` bash
+ros2 launch pc_det nuscenes_ort_launch.py
+```
+
+3. direct pc2 format inference(skip the file transform)
+
+``` bash
+ros2 launch pc_det nuscenes_pc_launch.py
+```
+
+
 
 ## screenshots
 
