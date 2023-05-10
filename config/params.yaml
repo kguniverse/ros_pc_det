@@ -1,7 +1,10 @@
 pub_bin:
   ros__parameters:
-    time_period: 0.5
+    time_period: 0.2
     nus_lidar_path: /home/wangqiankai/ros2_ws/src/pc_det/data/nuscenes/samples/LIDAR_TOP
+depthcam_pub:
+  ros__parameters:
+    time_period: 0.5
 infer_node:
   ros__parameters:
     score_threshold: 0.2

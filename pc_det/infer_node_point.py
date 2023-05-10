@@ -43,6 +43,11 @@ class InferNode(Node):
         # self.get_logger().info('I heard: "%s"' % msg.header.frame_id)
         # points_mmdet3d=msg.header.frame_id # load the bin file name
         points = pc2.read_points_numpy(msg)
+        if points.shape[0] == 0:
+            return
+        if points.shape[-1] == 3:
+            intensity = np.ones((points.shape[0], 1))
+            points = np.concatenate((points, intensity), axis=1)
         tim_dim = np.zeros((points.shape[0], 1))
         points = np.concatenate((points, tim_dim), axis=1)
         point_type = get_points_type('LIDAR')
