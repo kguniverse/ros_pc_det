@@ -16,6 +16,12 @@ with open(rviz_config_dir, 'r') as f:
     rviz_config = yaml.load(f, Loader=yaml.FullLoader)
 
 def generate_launch_description():
+    rviz = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        arguments=['-d', rviz_config_dir],
+        output='screen')
     return LaunchDescription([
         Node(
             package='pc_det',
@@ -54,11 +60,10 @@ def generate_launch_description():
             name='sync_node',
             parameters=[]
         ),
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            arguments=['-d', rviz_config_dir],
-            output='screen',
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=rviz,
+                on_exit=[EmitEvent(event=Shutdown())],
+            )
         )
     ])
