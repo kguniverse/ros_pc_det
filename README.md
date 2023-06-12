@@ -84,12 +84,18 @@ ros2 launch pc_det nuscenes_demo_launch.py
 ros2 launch pc_det nuscenes_ort_launch.py
 ```
 
-3. direct pc2 format inference(skip the file transform)
+3. direct pc2 format inference(skip the file
+ transform)
 
 ``` bash
 ros2 launch pc_det nuscenes_pc_launch.py
 ```
 
+4. run depthcam detection demo
+
+``` bash
+ros2 launch pc_det depthcam_demo_launch.py
+```
 
 
 ## screenshots
