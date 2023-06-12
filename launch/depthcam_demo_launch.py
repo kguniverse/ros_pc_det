@@ -3,6 +3,9 @@ from launch_ros.actions import Node
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python.packages import get_package_share_directory
+from launch.actions import RegisterEventHandler, EmitEvent
+from launch.event_handlers import OnProcessExit
+from launch.events import Shutdown
 import yaml
 
 import os
@@ -18,6 +21,12 @@ with open(rviz_config_dir, 'r') as f:
     rviz_config = yaml.load(f, Loader=yaml.FullLoader)
 
 def generate_launch_description():
+    rviz = Node(
+            package='rviz2',
+            executable='rviz2',
+            name='rviz2',
+            arguments=['-d', rviz_config_dir],
+            output='screen')
     return LaunchDescription([
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([get_package_share_directory('astra_camera'), '/launch/astra_mini.launch.py'])
@@ -53,11 +62,11 @@ def generate_launch_description():
             name='sync_node',
             parameters=[]
         ),
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            arguments=['-d', rviz_config_dir],
-            output='screen',
+        rviz,
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=rviz,
+                on_exit=[EmitEvent(event=Shutdown())],
+            )
         )
     ])

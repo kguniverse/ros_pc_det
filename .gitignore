@@ -2,8 +2,9 @@
 checkpoint
 data
 results
+config
 *.onnx
-params.yaml
+
 
 # colcon files
 build

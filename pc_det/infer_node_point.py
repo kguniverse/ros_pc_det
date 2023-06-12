@@ -52,13 +52,17 @@ class InferNode(Node):
         points = np.concatenate((points, tim_dim), axis=1)
         point_type = get_points_type('LIDAR')
         points = point_type(points, points_dim=points.shape[-1], attribute_dims=None)
-        result, data = inference_detector(self.model, points)
-        bboxes= result[0]['pts_bbox']['boxes_3d']
-        label = result[0]['pts_bbox']['labels_3d'].numpy()
-        score = result[0]['pts_bbox']['scores_3d'].numpy()
-        self.draw_bbox(bboxes, label, score, timestamp=msg.header.stamp)
+        try:
+            result, data = inference_detector(self.model, points)
+            bboxes= result[0]['pts_bbox']['boxes_3d']
+            label = result[0]['pts_bbox']['labels_3d'].numpy()
+            score = result[0]['pts_bbox']['scores_3d'].numpy()
+            self.draw_bbox(bboxes, label, score, timestamp=msg.header.stamp)
         # mmcv.dump((boxes, label, score), f'results/pc_det_result_{self.count}.pkl')
+        except:
+            return
         self.count += 1
+        
     
     def draw_bbox(self, bboxes, labels, scores, timestamp=None):
         # draw bbox on rviz2

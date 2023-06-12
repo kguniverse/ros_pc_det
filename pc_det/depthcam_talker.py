@@ -22,30 +22,19 @@ class DepthCamTalker(Node):
             self.listener_callback,
             qos,
             event_callbacks=callbacks)
-        self.declare_parameter('time_period', 0.5)
-        timer_period = self.get_parameter('time_period').get_parameter_value().double_value
-        self.timer = self.create_timer(timer_period, self.timer_callback)
+        self.declare_parameter('time_period', 0.2)
+        self.timer_period = self.get_parameter('time_period').get_parameter_value().double_value
         self.pub = self.create_publisher(PointCloud2, '/point_cloud', 10)
-        self.massage_recieved = False
-        self.msg = None
 
     def listener_callback(self, msg):
-        if len(msg.data) == 0 :
-            return
-        # change from camera to lidar
         points = pc2.read_points_numpy(msg)
         tmp_dim = points[:, 0].copy()
         points[:, 0] = points[:, 2]
         points[:, 2] = -points[:, 1]
         points[:, 1] = -tmp_dim
         msg = pc2.create_cloud_xyz32(msg.header, points)
-        self.msg = msg
-        self.massage_recieved = True
-    
-    def timer_callback(self):
-        if self.massage_recieved:
-            self.pub.publish(self.msg)
-            self.massage_recieved = False
+        self.pub.publish(msg)
+        # rclpy.spin_once(self, timeout_sec=self.timer_period)
 
 def main(args=None):
     rclpy.init(args=args)
